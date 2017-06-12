@@ -25,7 +25,6 @@ public class DataProfileManager extends DataManagerBase implements FacebookServi
 
     @Override
     public Facebook findById(String id) {
-        System.out.print("dupa");
         return DFM.getRecord(Integer.parseInt(id));
     }
 
@@ -67,14 +66,14 @@ public class DataProfileManager extends DataManagerBase implements FacebookServi
     private void buildAllProfiles(){
         try {
             allProfiles = DFM.getAllRecords();
-            List<Facebook> sortingList = new LinkedList<>();
+            ArrayList<Facebook> sortingList = new ArrayList<>();
             for(Facebook facebook : allProfiles) {
                 sortingList.add(facebook);
             }
             Collections.sort(sortingList);
             allProfiles.clear();
-            for(Facebook facebook : sortingList) {
-                allProfiles.add(facebook);
+            for(int i = 0; i<sortingList.size(); i++) {
+                allProfiles.add(sortingList.get(i));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,6 +89,9 @@ public class DataProfileManager extends DataManagerBase implements FacebookServi
                 idToPostMap.put(post.getKey(), post.getValue());
             }
         }
+    }
 
+    boolean isIdExisting(int id){
+        return DFM.fileBase.containsKey(id);
     }
 }

@@ -29,7 +29,6 @@ public class DataFilesManager extends DataManagerBase{
 
     Facebook getRecord(int id) {
         File file = new File(fileBase.get(id));
-        System.out.print(file.toString());
         try {
             return new Facebook(new JSONObject(new String(Files.readAllBytes(Paths.get(file.getPath())))));
         } catch (IOException e) {
@@ -80,10 +79,6 @@ public class DataFilesManager extends DataManagerBase{
         else {
           throw new java.io.IOException("There is no such directory: " + dir.toString());
 
-        }
-
-        for(Map.Entry<Integer, String> entry : fileBase.entrySet()){
-         System.out.println(entry.getValue());
         }
     }
 

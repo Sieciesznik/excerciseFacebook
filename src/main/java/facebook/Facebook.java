@@ -42,7 +42,7 @@ public class Facebook implements Comparable<Facebook>{
     }
 
     public String toString(){
-        return  "\nid = " + this.id +
+        return  "\n\nid = " + this.id +
                 "\nbirthday = " + this.birthday.toString() +
                 "\nfirstname = " + this.firstname +
                 "\nlastname = " + this.lastname +
@@ -60,7 +60,7 @@ public class Facebook implements Comparable<Facebook>{
     @Override
     public int compareTo(Facebook o) {
         int comparison = this.firstname.compareTo(o.firstname);
-        if(comparison == 0) return this.lastname.compareTo(o.lastname);
+        if(comparison == 0) comparison = this.lastname.compareTo(o.lastname);
         return comparison;
     }
 }

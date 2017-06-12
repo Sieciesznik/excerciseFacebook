@@ -21,7 +21,6 @@ public class mainClass extends Application{
     public void start(Stage primaryStage) throws Exception {
 
         DataProfileManager DPM = new DataProfileManager();
-        DPM.refresh();
 
         primaryStage.setTitle("Facebook Service");
         GridPane grid = new GridPane();
@@ -62,7 +61,16 @@ public class mainClass extends Application{
         findByIdButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                displayArea.setText(DPM.findById(findByIdTextField.getText()).toString());
+                try {
+                    if (!findByIdTextField.getText().isEmpty()) {
+                        if (DPM.isIdExisting(Integer.parseInt(findByIdTextField.getText())))
+                            displayArea.setText(DPM.findById(findByIdTextField.getText()).toString());
+                        else displayArea.setText("ID is invalid, try again!");
+                    } else
+                        displayArea.setText("Please type an ID!");
+                }catch (java.lang.NumberFormatException e){
+                    displayArea.setText("ID should be a number, try again!");
+                }
             }
         });
 
@@ -96,7 +104,10 @@ public class mainClass extends Application{
         findPostIdsByKeywordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                displayArea.setText(DPM.findPostIdsByKeyword(findPostIdsByKeywordTextField.getText()).toString());
+                if(!findPostIdsByKeywordTextField.getText().isEmpty())
+                    displayArea.setText(DPM.findPostIdsByKeyword(findPostIdsByKeywordTextField.getText()).toString());
+                else
+                    displayArea.setText("Please type a keyword!");
             }
         });
 
